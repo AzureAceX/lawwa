@@ -1,0 +1,494 @@
+
+<html lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>SLS Food Recipe</title>
+
+
+
+<link
+	href="//cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/2.1.0/toaster.css"
+	rel="stylesheet" />
+<script type="text/javascript"
+	src="http://gc.kis.v2.scr.kaspersky-labs.com/BED38F3D-6C20-D74C-9E19-B8D33A99B64D/main.js"
+	charset="UTF-8"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+<script src="http://code.angularjs.org/1.4.2/angular-animate.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/2.1.0/toaster.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="script/app.js"></script>
+<script src="script/service.js"></script>
+<script src="script/controller.js"></script>
+
+</head>
+<body ng-app="myApp" background="images/CookRecipe.png">
+	<div ng-controller="RecipeController">
+		<toaster-container
+			toaster-options="{'close-button':false, 'time-out':{ 'toast-warning': 2000, 'toast-error': 0 } }"></toaster-container>
+		<div class="container">
+			<div id="row1" class="row">
+				<div class="col">
+					<div class="jumbotron jumbotron-fluid">
+						<h1 class="recipe_header">SLS FOOD RECIPE</h1>
+						<p class="recipe_header2">Your Secret Recipe, Your Stories :)</p>
+					</div>
+				</div>
+			</div>
+			<nav class="navbar navbar-light"
+				style="background-color: rgba(255, 255, 255, 0.3); box-shadow: 0 0 10px rgba(0, 128, 128, 0.3);">
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<a ng-repeat-start="category in categoryList" ng-if="$first"
+						ng-init="selectCategory(category);"
+						ng-click="selectCategory(category)"
+						class="nav-item nav-link active" id="nav-{{category.cID}}-tab"
+						data-toggle="tab" href="#nav-{{category.cID}}" role="tab"
+						aria-controls="nav-{{category.cID}}" aria-selected="true">{{category.categoryTitle}}</a>
+					<a a ng-repeat-end ng-if="!$first"
+						ng-click="selectCategory(category);" class="nav-item nav-link"
+						id="nav-{{category.cID}}-tab" data-toggle="tab"
+						href="#nav-{{category.cID}}" role="tab"
+						aria-controls="nav-{{category.cID}}" aria-selected="false">{{category.categoryTitle}}</a>
+					<a class="nav-item nav-link" id="nav-contact-tab"
+						data-toggle="modal" href="#addRecipeModal" role="tab"
+						aria-controls="nav-contact" aria-selected="false">Create New</a>
+				</div>
+			</nav>
+			<div class="tab-content" id="nav-tabContent">
+				<div ng-repeat-start="category in categoryList" ng-if="$first"
+					class="tab-pane fade show active" id="nav-{{category.cID}}"
+					role="tabpanel" aria-labelledby="nav-{{category.cID}}-tab">
+					<div class="row">
+						<div class="col-md-3" style="margin-top: 12px;"
+							ng-repeat="recipe in category.recipes">
+							<div
+								style="border: 1px solid #333; background-color: rgba(255, 255, 255, 0.3); border-radius: 5px; padding: 16px; height: 200px; box-shadow: 0 0 10px rgba(0, 128, 128, 0.3);"
+								align="center">
+								<span class="fa fa-close" data-toggle="modal"
+									data-target="#confirmDeleteModel"
+									ng-click="pushRID(recipe.rID)"></span>
+								<div>
+									<div class="recipe_content">{{recipe.recipeTitle}}</div>
+									<br>
+									<p>
+										<small class="recipe_content2">The time you need:
+											{{recipe.cookTime}} mins</small>
+									</p>
+									<br>
+									<p>
+										<button type="button" class="recipe_btn" data-toggle="modal"
+											ng-click="selectRecipe(recipe)"
+											data-target="#readRecipeModal">Details</button>
+
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div ng-repeat-end ng-if="!$first" class="tab-pane fade"
+					id="nav-{{category.cID}}" role="tabpanel"
+					aria-labelledby="nav-category.cID-tab">
+					<div class="row">
+						<div class="col-md-3" style="margin-top: 12px;"
+							ng-repeat="recipe in category.recipes">
+							<div
+								style="border: 1px solid #333; background-color: rgba(255, 255, 255, 0.3); border-radius: 5px; padding: 16px; height: 200px; box-shadow: 0 0 10px rgba(0, 128, 128, 0.3);"
+								align="center">
+								<span class="fa fa-close" data-toggle="modal"
+									data-target="#confirmDeleteModel"
+									ng-click="pushRID(recipe.rID)"></span>
+								<div>
+									<div class="recipe_content">{{recipe.recipeTitle}}</div>
+									<br>
+									<p>
+										<small class="recipe_content2">The time you need:
+											{{recipe.cookTime}} mins</small>
+									</p>
+									<br>
+									<p>
+										<button type="button" class="recipe_btn" data-toggle="modal"
+											ng-click="selectRecipe(recipe)"
+											data-target="#readRecipeModal">Details</button>
+
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<!-- Read Selected Recipe Modal -->
+			<div id="readRecipeModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Recipe Details</h4>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div>
+									<table class="table-fill">
+										<thead>
+											<tr id="t-row">
+												<th id="t-head" class="text-left">Recipe</th>
+												<th id="t-head" class="text-left">Component of Recipe</th>
+											</tr>
+										</thead>
+										<tbody class="table-hover">
+											<tr id="t-row">
+												<td id="t-col" class="text-left">Recipe Title</td>
+												<td id="t-col" class="text-left">{{selectedRecipe.recipeTitle}}</td>
+											</tr>
+											<tr id="t-row">
+												<td id="t-col" class="text-left">Recipe Description</td>
+												<td id="t-col" class="text-left">{{selectedRecipe.description}}</td>
+											</tr>
+											<tr id="t-row">
+												<td id="t-col" class="text-left">Cook Time(mins)</td>
+												<td id="t-col" class="text-left">{{selectedRecipe.cookTime}}</td>
+											</tr>
+											<div>
+												<tr id="t-row"
+													ng-repeat-start="ingredient in selectedRecipe.ingredients"
+													ng-if="$first">
+													<td id="t-col" class="text-left">Ingredients</td>
+													<td id="t-col" class="text-left">{{ingredient.ingredientName}}</td>
+												</tr>
+												<tr id="t-row" ng-repeat-end ng-if="!$first">
+													<td id="t-col" class="text-left"></td>
+													<td id="t-col" class="text-left">{{ingredient.ingredientName}}</td>
+												</tr>
+											</div>
+											<div>
+												<tr id="t-row"
+													ng-repeat-start="step in selectedRecipe.steps"
+													ng-if="$first">
+													<td id="t-col" class="text-left">Steps</td>
+													<td id="t-col" class="text-left">{{step.stepDescription}}</td>
+												</tr>
+												<tr id="t-row" ng-repeat-end ng-if="!$first">
+													<td id="t-col" class="text-left"></td>
+													<td id="t-col" class="text-left">{{step.stepDescription}}</td>
+												</tr>
+											</div>
+										</tbody>
+									</table>
+								</div>
+								<br>
+						</div>
+						<div class="modal-footer">
+							<button type=" button" class="btn btn-info btn-lg"
+								data-toggle="modal" data-target="#updateRecipeModal"
+								ng-click="goEdit()">Edit</button>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" ng-click="click_Close()">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Update Recipe Modal -->
+			<div id="updateRecipeModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Recipe Details</h4>
+						</div>
+						<div class="modal-body">
+							<form name="updateFrm">
+								<div>
+									<table>
+										<tr>
+											<td>Recipe Title:</td>
+											<td><input type="text"
+												ng-model="selectedRecipe.recipeTitle"></td>
+										</tr>
+										<tr>
+											<td>Description:</td>
+											<td><input type="text"
+												ng-model="selectedRecipe.description"></td>
+										</tr>
+										<tr>
+											<td>Time(mins):</td>
+											<td><input type="text"
+												ng-model="selectedRecipe.cookTime"></td>
+										</tr>
+										<tr>
+											<td>Ingredient:</td>
+											<td><input type="text" name="ingredientName"
+												ng-model="ingredientName" /></td>
+											<td><button ng-disabled="updateFrm.$invalid"
+													ng-click="addIngredient()">Add</button></td>
+										</tr>
+										<div>
+											<tr
+												ng-repeat-start="ingredient in selectedRecipe.ingredients"
+												ng-if="$first">
+												<td class="text-left"></td>
+												<td class="text-left"><span class="fas fa-trash"
+													ng-click="keepIngredient(ingredient);deleteIngredient($index)"></span>
+													<span>{{ingredient.ingredientName}}</span></td>
+											</tr>
+											<tr ng-repeat-end ng-if="!$first">
+												<td class="text-left"></td>
+												<td class="text-left"><span class="fas fa-trash"
+													ng-click="keepIngredient(ingredient); deleteIngredient($index)"></span>
+													<span>{{ingredient.ingredientName}}</span></td>
+											</tr>
+										</div>
+										<tr>
+											<td>Steps:</td>
+											<td><input type="text" name="stepDescription"
+												ng-model="stepDescription" /></td>
+											<td><button ng-disabled="updateFrm.$invalid"
+													ng-click="addStep()">Add</button></td>
+										</tr>
+										<div>
+											<tr ng-repeat-start="step in selectedRecipe.steps"
+												ng-if="$first">
+												<td class="text-left"></td>
+												<td class="text-left"><span class="fas fa-trash"
+													ng-click="keepStep(step);deleteStep($index) "></span> <span>{{step.stepDescription}}</span></td>
+											</tr>
+											<tr ng-repeat-end ng-if="!$first">
+												<td class="text-left"></td>
+												<td class="text-left"><span class="fas fa-trash"
+													ng-click="keepStep(step); deleteStep($index)"></span> <span>{{step.stepDescription}}</span></td>
+											</tr>
+										</div>
+									</table>
+								</div>
+								<br>
+						</div>
+						<div class="modal-footer">
+							<button type=" button" class="btn btn-info btn-lg"
+								data-toggle="modal" data-target="#confirmUpdateModel"
+								ng-click="check()">Update</button>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" ng-click="click_Close()">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Create New Recipe Modal -->
+			<div id="addRecipeModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Create New Recipe</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<form name="addFrm">
+								<div>
+									<table>
+										<tr>
+											<td>Recipe Category:</td>
+											<td>
+												<div class="recipe_content">
+													<select name="category" id="category"
+														ng-options="option.categoryTitle for option in categoryList track by option.cID"
+														ng-model="categoryList.selectedOption" class="timeoption"></select>
+
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>Recipe Title:</td>
+											<td><input type="text" ng-model="recipeTitle"></td>
+										</tr>
+										<tr>
+											<td>Description:</td>
+											<td><input type="text" ng-model="recipeDescription"></td>
+										</tr>
+										<tr>
+											<td>Time(mins):</td>
+											<td><input type="text" ng-model="cookTime"></td>
+										</tr>
+										<tr>
+											<td>Ingredient:</td>
+											<td><input type="text" name="ingredient"
+												ng-model="ingredients.ingredient" /></td>
+											<td><button ng-disabled="addFrm.$invalid"
+													ng-click="addRecipeIngredient()">Add</button></td>
+										</tr>
+										<div>
+											<tr ng-repeat-start="ingredient in ingredients"
+												ng-if="$first">
+												<td class="text-left"></td>
+												<td class="text-left"><span class="fas fa-trash"
+													ng-click="deleteRecipeIngredient($index)"></span> <span>{{ingredient.ingredientName}}</span></td>
+											</tr>
+											<tr ng-repeat-end ng-if="!$first">
+												<td class="text-left"></td>
+												<td class="text-left"><span class="fas fa-trash"
+													ng-click="deleteRecipeIngredient($index)"></span> <span>{{ingredient.ingredientName}}</span></td>
+											</tr>
+										</div>
+										<tr>
+											<td>Steps:</td>
+											<td><input type="text" name="step" ng-model="steps.step" /></td>
+											<td><button ng-disabled="addFrm.$invalid"
+													ng-click="addRecipeStep()">Add</button></td>
+										</tr>
+										<div>
+											<tr ng-repeat-start="step in steps" ng-if="$first">
+												<td class="text-left"></td>
+												<td class="text-left"><span class="fas fa-trash"
+													ng-click="deleteRecipeStep($index)"></span> <span>{{step.stepDescription}}</span></td>
+											</tr>
+											<tr ng-repeat-end ng-if="!$first">
+												<td class="text-left"></td>
+												<td class="text-left"><span class="fas fa-trash"
+													ng-click="deleteRecipeStep($index)"></span> <span>{{step.stepDescription}}</span></td>
+											</tr>
+										</div>
+									</table>
+								</div>
+								<br>
+						</div>
+						<div class="modal-footer">
+							<button type=" button" class="btn btn-info btn-lg"
+								data-toggle="modal" data-target="#confirmCreateModel"
+								ng-click="create()">Create</button>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" ng-click="click_Close()">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Confirm Update Recipe Modal -->
+			<div class="modal fade" id="confirmUpdateModel" tabindex="-1"
+				role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Confirm
+								Update</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h4>Confirm to Update the Recipe?</h4>
+							<small>*the process are cannot be revert once click
+								'Confirm' </small>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-target="#updateRecipeModal" data-dismiss="modal"
+								data-toggle="modal"ng-click"uncheck()">Back</button>
+							<button type="button" class="btn btn-primary"
+								ng-click="updateRecipe(selectedsteps,selectedingregients)">Confirm</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Confirm Delete Recipe Modal -->
+			<div class="modal fade" id="confirmDeleteModel" tabindex="-1"
+				role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Confirm
+								Delete</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h4>Confirm to Delete the Recipe?</h4>
+							<small>*the process are cannot be revert once click
+								'Confirm' </small>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Back</button>
+							<button type="button" class="btn btn-primary"
+								ng-click="deleteRecipe(id)">Confirm</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Confirm Create New Recipe Modal -->
+			<div class="modal fade" id="confirmCreateModel" tabindex="-1"
+				role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Confirm
+								Create</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h4>Confirm to Create New Recipe?</h4>
+							<small>*the process are cannot be revert once click
+								'Confirm' </small>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-target="#addRecipeModal" data-dismiss="modal"
+								data-toggle="modal"ng-click"uncreate()">Back</button>
+							<button type="button" class="btn btn-primary"
+								ng-click="addRecipe()">Confirm</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+</body>
+</html>

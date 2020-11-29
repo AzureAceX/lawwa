@@ -1,0 +1,35 @@
+<div class="container">
+  <hr />
+  <h2>Registry Data</h2>
+  <div class="clearfix"></div>
+  <hr />
+
+  <div class="alert alert-info alert-dismissible" role="alert" ng-if="info">
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true" ng-click="clearInfo()">&times;</span>
+    </button>
+    {{info}}
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+		<th>Sign In</th>
+		<th>Sign Out</th>
+        <th>Remote Login</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="registryEntry in registry">
+        <td>{{registry.registryId}}.</td>
+		<td>{{registry.employeeId}}</td>
+		<td>{{registry.isRemote}}</td>
+		<td>{{registry.location}}</td>
+		<td>{{registry.signIn}}</td>
+        <td>{{registry.signOut}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
