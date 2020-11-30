@@ -46,8 +46,6 @@ class EmployeeController {
 	public ResponseEntity<Employee> create(@RequestBody EmployeeDTO employeeDto) {
 		try {
 			Employee employeeObj = new Employee();
-//			= modelMapper.map(employeeDto, Employee.class);
-			
 			employeeObj.setFirstName(employeeDto.getFirstName());
 			employeeObj.setLastName(employeeDto.getLastName());
 			employeeObj.setEmail(employeeDto.getEmail());
