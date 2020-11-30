@@ -58,20 +58,11 @@ class RegistryController {
 	public ResponseEntity<Registry> createRegistry(@RequestBody RegistryDTO registryDTO){
 				
 		try {
-//			String valueFromClient = registryDTO.getSignIn();
-//			Date javaDatetime = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss").parse(valueFromClient);
-//			Timestamp jdbcDatetime = new Timestamp(javaDatetime.getTime());
-			
-			
 			Registry registryObj = new Registry();
 			registryObj.setEmployeeId(registryDTO.getEmployeeId());
 			registryObj.setLocation(registryDTO.getLocation());
 			registryObj.setRemote(registryDTO.isRemote());
-//			registryObj.setSignIn(jdbcDatetime);
-//			registryObj.setSignIn(genericServiceObj.convertStringToTimestamp(registryDTO.getSignIn()));
 			registryObj.setSignIn(new Timestamp(registryDTO.getSignIn()));
-//			registryObj.setSignOut(null);
-			
 			registryRepositoryObj.save(registryObj);
 			return new ResponseEntity<>(registryObj, HttpStatus.CREATED);
 		} catch (Exception e) {
