@@ -35,6 +35,11 @@ app.controller(
       }
     });
 
+    $.get("https://ipapi.co/json/", function (data) {
+      $scope.location = data.city;
+      // console.log(data)
+    });
+
     // Log in functionality
     $scope.login = function () {
       $scope.resetRegistryObj();
@@ -65,7 +70,7 @@ app.controller(
         employeeId: $scope.sessionInfo.employeeId,
         isRemote: $scope.isRemote,
         location: $scope.location,
-        signIn:  $scope.sessionInfo.signInTime,
+        signIn: $scope.sessionInfo.signInTime,
         signOut: null,
       };
 
@@ -73,7 +78,7 @@ app.controller(
       LawwaService.addRegistry($scope.logInObj.registry, function (err, data) {
         if (!err) {
           // alert("Sign In Completed");
-          window.location.href = "http://localhost:8761/loggedIn"; //forceful redirection - done because of lack of time
+          window.location.href = "/loggedIn"; //forceful redirection - done because of lack of time
         }
         $scope.loggedIn = true;
       });
@@ -89,7 +94,7 @@ app.controller(
         }
       });
 
-      console.log("Employee Clocking Out At: "  +getDateTime() );
+      console.log("Employee Clocking Out At: " + getDateTime());
       LawwaService.updateRegistry(function (err, data) {}, $scope.empRegistry);
     };
 
@@ -114,7 +119,7 @@ app.controller(
     /*
   Generate DATE / TIME for today
 */
-    function  getDateTime() {
+    function getDateTime() {
       var today = new Date();
       var date =
         today.getFullYear() +
@@ -125,7 +130,7 @@ app.controller(
       var time =
         today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       var dateTime = date + " " + time;
-      var res = new Date(dateTime).getTime(); 
+      var res = new Date(dateTime).getTime();
       return res;
     }
 
@@ -136,5 +141,10 @@ app.controller(
     $scope.closeModal = function () {
       $scope.newEmp = {};
     };
+
+    // $scope.navToLoggedIn = function () {
+      
+    // }
+
   }
 );

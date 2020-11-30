@@ -1,16 +1,14 @@
-<div>
-    <h1>Welcome</h1>
+<div ng-controller="LawwaController">
+    <h1>Welcome {{logInObj.employee.firstname}}</h1>
 
-    <!-- <h1>Sign In Time: {{logInObj.registry.signIn}}</h1> -->
-
-    <!-- <div ng-if="loggedIn" class="d-flex p-2 justify-content-center mb-5">
+    <div ng-if="loggedIn" class="d-flex p-2 justify-content-center mb-5">
         <a type="button" class="btn btn-info mr-2" href="/employees">View Employees</a>
         <a type="button" class="btn btn-info mr-2" href="/login">Login Page</a>
         <a type="button" class="btn btn-info mr-2" href="/registry">View Registry</a>
         <a type="button" class="btn btn-info mr-2" href="/loggedIn">logged in</a>
-    </div>        -->
+    </div>       
 
     <p>
-        <input type="submit" class="btn btn-danger" value="Log Out" ng-click="logout()">
+        <input type="submit" class="btn btn-danger float-right" value="Log Out" ng-click="logout()">
     </p>
 </div>
