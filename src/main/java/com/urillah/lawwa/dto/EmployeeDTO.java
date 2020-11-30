@@ -6,13 +6,24 @@ import lombok.Data;
 public class EmployeeDTO {
 
 	private long employeeId;
-	private String email;
 	private String firstName;
+
 	private String lastName;
-	private Long phoneNo;
+	
+	private String email;
+
+	private long phoneNo;
+
+	private String department;
+
+	private String role;
+
 	private String username;
+
 	private String password;
+
 	private boolean enabled;
+	
 	private boolean isAdmin;
 
 }

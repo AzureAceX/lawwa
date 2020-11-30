@@ -12,7 +12,7 @@ public class RegistryDTO {
 	private long employeeId;
 	private boolean isRemote;
 	private String location;
-	private String signIn;
+	private Long signIn;
 	private String signOut;
 	
 }

@@ -73,6 +73,20 @@ angular.module("myApp").factory("LawwaService", function ($http) {
       });
   };
 
+  var createEmployee = function (data, cb) {
+    $http({
+      method: "POST",
+      url: "http://localhost:8761/employee/create",
+      data: JSON.stringify(data),
+    })
+      .success(function (data, status, headers, config) {
+        cb(null, data);
+      })
+      .error(function (data, status, headers, config) {
+        cb(data);
+      });
+  };
+
 
 //   var getRecipes = function (cb) {
 //     $http({
@@ -183,6 +197,7 @@ angular.module("myApp").factory("LawwaService", function ($http) {
 
 	listEmployees: listEmployees,
 	getEmployeeAccount: getEmployeeAccount,
+	createEmployee: createEmployee,
 
     // getRecipes: getRecipes,
     // postRecipe: postRecipe,

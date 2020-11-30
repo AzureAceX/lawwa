@@ -45,7 +45,20 @@ class EmployeeController {
 	@PostMapping(value = "/create")
 	public ResponseEntity<Employee> create(@RequestBody EmployeeDTO employeeDto) {
 		try {
-			Employee employeeObj = modelMapper.map(employeeDto, Employee.class);
+			Employee employeeObj = new Employee();
+//			= modelMapper.map(employeeDto, Employee.class);
+			
+			employeeObj.setFirstName(employeeDto.getFirstName());
+			employeeObj.setLastName(employeeDto.getLastName());
+			employeeObj.setEmail(employeeDto.getEmail());
+			employeeObj.setAdmin(employeeDto.isAdmin());
+			employeeObj.setUsername(employeeDto.getUsername());
+			employeeObj.setPassword(employeeDto.getPassword());
+			employeeObj.setPhoneNo(employeeDto.getPhoneNo());
+			employeeObj.setRole(employeeDto.getRole());
+			employeeObj.setDepartment(employeeDto.getDepartment());
+			employeeObj.setEnabled(employeeDto.isEnabled());
+		
 			employeeRepositoryObj.save(employeeObj);
 
 
