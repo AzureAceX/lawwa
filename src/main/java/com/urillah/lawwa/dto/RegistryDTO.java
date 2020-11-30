@@ -3,6 +3,7 @@ package com.urillah.lawwa.dto;
 import java.sql.Timestamp;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class RegistryDTO {
@@ -11,7 +12,7 @@ public class RegistryDTO {
 	private long employeeId;
 	private boolean isRemote;
 	private String location;
-	private Timestamp signIn;
-	private Timestamp signOut;
+	private String signIn;
+	private String signOut;
 	
 }

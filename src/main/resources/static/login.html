@@ -1,15 +1,18 @@
-<div>
+<div ng-controller="LawwaController">
     <h1>Log in</h1>
 
     <div ng-show="invdalidLogin">Sorry, Please check your login details and try again</div>
     
     <form class="login-form">
       <label>Username:</label>
-      <input type="text" name="username">
-    
+      <input type="text" name="username" ng-model="username" required>
+
       <label>Password:</label>
-      <input type="password" name="password">
+      <input type="password" name="password" ng-model="password" required>
+
+      <label>Remote Login:</label>
+      <input type="checkbox" name="isRemote" ng-model="isRemote">
     
-      <input type="submit" value="Log In" onclick="login()">
+      <input type="submit" value="Log In" ng-click="login()">
     </form>
 </div>

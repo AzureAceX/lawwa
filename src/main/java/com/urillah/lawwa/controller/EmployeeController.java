@@ -71,6 +71,13 @@ class EmployeeController {
 
 	@GetMapping(value = "/{username}/{password}")
 	public Employee findByUsernameAndPassword(@PathVariable("username") String username, @PathVariable("password") String password) {
-		return employeeRepositoryObj.findByUsernameAndPassword(username, password);
+		
+		Employee foundEmployee = new Employee();
+		Optional<Employee> employee = employeeRepositoryObj.findByUsernameAndPassword(username, password);
+		
+		if(employee.isPresent()) {
+			foundEmployee = employee.get();
+		}
+			return foundEmployee;
 	}
 }

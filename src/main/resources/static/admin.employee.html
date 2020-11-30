@@ -1,7 +1,6 @@
 <div class="container">  		
-	<hr>
-	<button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#myModal">Add New</button>
-	<h2>All Users</h2>
+	<button type="button" class="btn btn-info btn-lg pull-right float-right" data-toggle="modal" data-target="#myModal">Register</button>
+	<h2>All Employees</h2>
 		<div class="clearfix"></div>
 		<hr>
 		
@@ -13,27 +12,21 @@
 	    <thead>
 	      <tr>
 	        <th>Index</th>
-	        <th>username</th>
+	        <th>Name</th>
 	        <th>email</th>
-	        <th>Edit</th>
-	        <th>Delete</th>
+	        <th>Job Role</th>
 	      </tr>
 	    </thead>
 	    <tbody>
-	      <tr ng-repeat="user in users">
-	        <td> {{ $index+1 }}.</td>
-	        <td> {{user.username}} </td>
-	        <td>{{user.email}}</td>
-	        <td> <button class="btn btn-info btn-sm"  type="button" data-toggle="modal" data-target="#myModalEdit" ng-click="selectUser(user)">Edit</button> </td>
-	        <td> <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModalDelete" ng-click="selectUser(user)">Delete</button> </td>
+	      <tr ng-repeat="employee in employeesList">
+	        <td> {{employee.employeeId}}</td>
+	        <td> {{employee.firstName }} {{employee.lastName}} </td>
+			<td> {{employee.email}} </td>
+			<td> {{employee.role}} </td>
 	      </tr>		      
 	    </tbody>
 	  </table>
 	</div>    
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="  js/bootstrap.min.js"></script>
-
-
  <!-- Trigger the modal with a button -->
 
 
@@ -44,8 +37,8 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">New User Registration</h4>
+		<h4 class="modal-title">New Employee Registration</h4>
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
@@ -88,11 +81,11 @@
 
 
 <!-- Modal -->
-<div id="myModalEdit" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<!-- <div id="myModalEdit" class="modal fade" role="dialog">
+  <div class="modal-dialog"> -->
 
     <!-- Modal content-->
-    <div class="modal-content">
+    <!-- <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Edit This User</h4>
@@ -134,14 +127,14 @@
     </div>
 
   </div>
-</div>
+</div> -->
 
 <!-- Modal -->
-<div id="myModalDelete" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<!-- <div id="myModalDelete" class="modal fade" role="dialog">
+  <div class="modal-dialog"> -->
 
     <!-- Modal content-->
-    <div class="modal-content">
+    <!-- <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Are You Sure?</h4>
@@ -157,42 +150,5 @@
     </div>
 
   </div>
-</div>
+</div> -->
 
-<script>
-var myApp = angular.module("myApp", []);
-
-myApp.controller("myController", function($scope){
-	console.log("in controller...");
-	$scope.newUser = {};
-	$scope.info = "";
-
-	$scope.users = [
-		{username: "rimon", fullName: "Md. Mamunur Rashid Rimon", email:"rimonmath@gmail.com"},
-		{username: "shamim", fullName: "Md. Tamim Hossain", email:"shamim@gmail.com"},
-		{username: "tamim", fullName: "Tamim Iqbal", email:"tamim@gmail.com"}
-	];
-
-	$scope.saveUser = function(){
-		console.log("Saving...");
-		$scope.users.push($scope.newUser);
-		$scope.info = "New User Added Successfully!";
-		$scope.newUser = {};
-	};
-
-	$scope.selectUser = function(user){
-		$scope.clickedUser = user;
-	};
-
-	$scope.deleteUser = function(){
-		console.log($scope.users.indexOf($scope.clickedUser));
-		$scope.users.splice($scope.users.indexOf($scope.clickedUser), 1);
-		$scope.info = "User Deleted Successfully!";
-	};
-
-	$scope.clearInfo = function(){
-		$scope.info = "";
-	};
-});
-
-</script>

@@ -1,29 +1,28 @@
 var app = angular.module("myApp", ['ngRoute']);
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $locationProvider) {
     
+  if(window.history && window.history.pushState){
+    $locationProvider.html5Mode(true);
+  }
+  
   $routeProvider
     .when("/", {
-      templateUrl: "index.html",
-      controller: "LawwaController",
-    })
-    .when("/login", {
       templateUrl: "login.html",
-      controller: "LawwaController",
     })
     .when("/loggedIn", {
         templateUrl: "loggedIn.html",
-        controller: "LawwaController",
       })
     .when("/employees", {
       templateUrl: "admin.employee.html",
-      controller: "LawwaController",
     })
     .when("/registry", {
       templateUrl: "admin.registry.html",
-      controller: "LawwaController",
+    })
+    .when("/banana", {
+      template : "<h1>Banana</h1><p>Bananas contain around 75% water.</p>"
     })
     .otherwise({
-      redirectTo: "/login",
+      redirectTo: "/",
     });
 });

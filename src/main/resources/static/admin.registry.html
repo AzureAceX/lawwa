@@ -14,21 +14,21 @@
     <thead>
       <tr>
         <th>Index</th>
-        <th>Firstname</th>
-        <th>Lastname</th>
-		<th>Sign In</th>
-		<th>Sign Out</th>
+        <th>Employee ID</th>
         <th>Remote Login</th>
+        <th>Location</th>
+        <th>Sign In</th>
+        <th>Sign Out</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="registryEntry in registry">
-        <td>{{registry.registryId}}.</td>
-		<td>{{registry.employeeId}}</td>
-		<td>{{registry.isRemote}}</td>
-		<td>{{registry.location}}</td>
-		<td>{{registry.signIn}}</td>
-        <td>{{registry.signOut}}</td>
+      <tr ng-repeat="registry in registryList">
+        <td>{{registryList.registryId}}.</td>
+        <td>{{registryList.employeeId}}</td>
+        <td>{{registryList.isRemote}}</td>
+        <td>{{registryList.location}}</td>
+        <td>{{registryList.signIn}}</td>
+        <td>{{registryList.signOut}}</td>
       </tr>
     </tbody>
   </table>
