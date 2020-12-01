@@ -19,6 +19,7 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+<!-- #server.port=${PORT:8080} -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
