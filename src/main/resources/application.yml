@@ -13,23 +13,24 @@
 # server:
 #   port: 8761 
 
-server:
-    port: 8761
+
 spring:
-    datasource:
-        driverClassName: org.postgresql.Driver
-        initialSize: 5
-        maxActive: 10
-        maxIdle: 5
-        minIdle: 2
-        removeAbandoned: true
-    jpa:
-        hibernate:
-            ddl:
-                auto: update
-        properties:
-            hibernate:
-                jdbc:
-                    lob:
-                        non_contextual_creation: true
-        show-sql: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    initialSize: 5
+    maxActive: 10
+    maxIdle: 5
+    minIdle: 2
+    removeAbandoned: true
+  jpa:
+    hibernate:
+      ddl:
+        auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true
+server:
+  port: 8761
