@@ -33,7 +33,7 @@ angular.module("myApp").factory("LawwaService", function ($http) {
   var updateRegistry = function (data, cb) {
     $http({
       method: "PUT",
-      url: "http://localhost:8080/registry/" + data.registryId,
+      url: "http://localhost:8761/registry/" + data.registryId,
       data: data,
     })
       .success(function (data, status, headers, config) {
