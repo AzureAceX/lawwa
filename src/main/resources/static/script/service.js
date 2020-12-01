@@ -6,7 +6,7 @@ angular.module("myApp").factory("LawwaService", function ($http) {
   var listRegistry = function (cb) {
     $http({
       method: "GET",
-      url: "http://localhost:8761/registry/list",
+      url: "http://localhost:8080/registry/list",
     })
       .success(function (data, status, headers, config) {
         cb(null, data);
@@ -50,7 +50,7 @@ angular.module("myApp").factory("LawwaService", function ($http) {
   var listEmployees = function (cb) {
     $http({
       method: "GET",
-      url: "http://localhost:8761/employee/list",
+      url: "http://localhost:8080/employee/list",
     })
       .success(function (data, status, headers, config) {
         cb(null, data);
