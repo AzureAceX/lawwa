@@ -50,7 +50,7 @@ angular.module("myApp").factory("LawwaService", function ($http) {
   var listEmployees = function (cb) {
     $http({
       method: "GET",
-      url: "http://localhost:8080/employee/list",
+      url: "https://lawwa-attendance.herokuapp.com/employee/list",
     })
       .success(function (data, status, headers, config) {
         cb(null, data);
